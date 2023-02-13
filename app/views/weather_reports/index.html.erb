@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 mb-4">
+    <div class="card mb-4">
+      <div class="card-header py-3 d-flex justify-content-center">
+        <%= render 'shared/nav_bar' %>
+        <%# <h5 class="mb-0">Get weather report by location</h5> %>
+      </div>
+      <div class="card-body">
+        <%= form_with url: :weather_report, method: :get, data: { controller: 'shared--places', action: 'google-maps-callback-event@window->shared--places#initAutocomplete' } do |form| %>
+
+          <!-- Street -->
+          <div class="form-outline mb-4">
+            <%= form.label 'address[street]', "Street", class: "form-label" %>
+            <%= form.text_field 'address[street]', class: "form-control form-control-lg", data: { 'shared--places-target': 'street' }, placeholder: '' %>
+          </div>
+
+          <div class="row">
+            <!-- City -->
+            <div class="col-md-6 mb-4">
+              <%= form.label 'address[city]', "City", class: "form-label" %>
+              <%= form.text_field 'address[city]', class: "form-control form-control-lg", data: { 'shared--places-target': 'city' } %>
+            </div>
+
+            <!-- State -->
+            <div class="col-md-6 mb-4">
+              <%= form.label 'address[state]', "State", class: "form-label" %>
+              <%= form.text_field 'address[state]', class: "form-control form-control-lg", data: { 'shared--places-target': 'state' } %>
+            </div>
+          </div>
+
+          <!-- Zip Code -->
+          <div class="form-outline mb-4">
+            <%= form.label 'address[zip]', "Zip", class: "form-label" %>
+            <%= form.text_field 'address[zip]', class: "form-control form-control-lg", data: { 'shared--places-target': 'zip' } %>
+          </div>
+
+          <div class='row'>
+            <div class="btn-group mb-4">
+              <input type="radio" class="btn-check" value='weather' name="weather_type" id="current_forecast" autocomplete="off" checked />
+              <label class="btn btn-primary" for="current_forecast">Current Forecast</label>
+
+              <input type="radio" class="btn-check" value='forecast' name="weather_type" id="five_day_forecast" autocomplete="off" />
+              <label class="btn btn-primary" for="five_day_forecast">Five Day Forecast</label>
+            </div>
+          </div>
+
+          <%= form.submit "Search", class: 'btn btn-primary mb-3' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
