@@ -6,9 +6,22 @@ class WeatherReportsController < ApplicationController
 
   def get_weather_report
     response = openweather_api_client
-    Rails.logger.info(response.weather_info)
 
-    redirect_back fallback_location: :root
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.replace(
+          'weather_report',
+          partial: 'weather_response_container',
+          locals: { 
+            weather_report: response.weather_info, 
+            weather_type: params[:weather_type],
+            success: response.success?
+          }
+        )
+      }
+
+      format.html { redirect_back fallback_location: :root }
+    end
   end
 
   private

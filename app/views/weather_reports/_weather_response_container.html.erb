@@ -1,0 +1,33 @@
+<%= turbo_frame_tag 'weather_report' do %>
+  <% if !success %>
+    <%# TODO: Move into separate partial to handle API error response %>
+    <p><%= weather_report %></p>
+  <% elsif weather_type == 'weather' %>
+    <%# TODO: Move into separate partial %>
+    <div class="row justify-content-center">
+      <div class="card col-md-8" style="color: #4B515D; border-radius: 35px; margin-bottom: 35px;">
+        <div class="card-body p-4">
+          <div class="d-flex flex-column text-center mt-1 mb-4">
+            <h6 class="flex-grow-1"><%= weather_report['name']%></h6>
+            <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"><%= weather_report['main']['temp'].to_i %>°F </h6>
+            <span class="small" style="color: #868B94"><%= weather_report['weather'].first['description']%></span>
+          </div>
+          <div class='d-flex flex-column text-center mb-1'>
+            <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span class="ms-1">Max Temp: <%= weather_report['main']['temp_max'].to_i %>°F</span> </div>
+            <div><i class="fas fa-sun fa-fw" style="color: #868B94;"></i> <span class="ms-1">Min Temp: <%= weather_report['main']['temp_min'].to_i %>°F</span>
+            <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1">Wind: <%= weather_report['wind']['speed']%> km/h </span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else weather_type == 'forecast' %>
+    <%#=
+      API free tier limited to 5 day forecast w/ 3 hour increments. Meaning, a total of 40
+      weathe report responses. This still could be appropriately parsed and displayed through helper
+      module.
+
+      TODO: Display response data cleanly. Create separate partial
+    %>
+    <p><%= weather_report %></p>
+  <% end %>
+<% end %>

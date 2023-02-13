@@ -16,6 +16,9 @@ module OpenweatherApi
     def retrieve(url=nil)
       response = send_request url unless @options.empty?
       parse_response(response)
+      # TODO: Handle error responses.
+        # Additional module associated with openweathermaps API client
+        # Global helper module for all API clients based off of status code 
       return self
     end
 

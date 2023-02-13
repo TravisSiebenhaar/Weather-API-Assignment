@@ -3,10 +3,9 @@
     <div class="card mb-4">
       <div class="card-header py-3 d-flex justify-content-center">
         <%= render 'shared/nav_bar' %>
-        <%# <h5 class="mb-0">Get weather report by location</h5> %>
       </div>
       <div class="card-body">
-        <%= form_with url: :weather_report, method: :get, data: { controller: 'shared--places', action: 'google-maps-callback-event@window->shared--places#initAutocomplete' } do |form| %>
+        <%= form_with url: :weather_report, method: :post, data: { controller: 'shared--places', action: 'google-maps-callback-event@window->shared--places#initAutocomplete' } do |form| %>
 
           <!-- Street -->
           <div class="form-outline mb-4">
@@ -50,3 +49,5 @@
     </div>
   </div>
 </div>
+
+<%= render 'weather_response_container', weather_report: nil, weather_type: nil, success: true %>
